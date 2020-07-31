@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { FaBars, FaArrowDown } from 'react-icons/fa'
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose, IoIosColorPalette } from 'react-icons/io'
 
 export const Container = styled.header`
   height: 60px;
@@ -25,6 +25,9 @@ export const LogoImg = styled.img`
 export const SidebarButton = styled.button`
   border: none 0;
   background-color: transparent;
+  
+  display: flex;
+  flex-direction: row;
 
   cursor: pointer;
 
@@ -48,6 +51,7 @@ export const sideBarContainer = styled.section`
   height: 100vh;
 
   display: flex;
+  flex-direction: column;
 
   background-color: #FFFFFF;
 `
@@ -77,8 +81,26 @@ export const Li = styled.li`
   }
 `
 
+export const SubLi = styled.li`
+  display: flex;
+  flex-direction: column;
+
+  width: 50vh;
+  height: 30px;
+`
+
 export const LiOption = styled.p`
   padding-left: 10px;
+
+  font-size: 16px;
+
+`
+
+export const SubLiOption = styled.p`
+  padding-left: 60px;
+  padding-top: 5px;
+
+  font-size: 16px;
 `
 
 export const ArrowDownIcon = styled(FaArrowDown)`
@@ -88,4 +110,13 @@ export const ArrowDownIcon = styled(FaArrowDown)`
   color: grey;
 
   padding-left: 15px;
+`
+
+export const EventIcon = styled(IoIosColorPalette)`
+  width: 18px;
+  height: 18px;
+
+  color: grey;
+
+  padding-left: 20px;
 `
