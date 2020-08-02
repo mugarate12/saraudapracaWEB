@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FaBars, FaArrowDown } from 'react-icons/fa'
+import { FaBars, FaArrowDown, FaClock, FaUser, FaSignInAlt } from 'react-icons/fa'
 import { IoMdClose, IoIosColorPalette } from 'react-icons/io'
 
 export const Container = styled.header`
@@ -35,6 +35,10 @@ export const SidebarButton = styled.button`
     box-shadow: 0 0 0 0;
     outline: 0;
   }
+
+  :hover {
+    opacity: 0.5;
+  }
 `
 
 export const BarIcon = styled(FaBars)`
@@ -53,7 +57,7 @@ export const sideBarContainer = styled.section`
   display: flex;
   flex-direction: column;
 
-  background-color: #FFFFFF;
+  background-color: ${props => props.theme.colors.sideBarColor};
 `
 
 export const ClosedIcon = styled(IoMdClose)`
@@ -86,14 +90,19 @@ export const SubLi = styled.li`
   flex-direction: column;
 
   width: 50vh;
-  height: 30px;
+
+  padding-bottom: 5px;
 `
 
 export const LiOption = styled.p`
   padding-left: 10px;
 
   font-size: 16px;
+  color: ${props => props.theme.colors.fontColor};
 
+  @media (max-height: 360px) {
+    font-size: 12px;
+  }
 `
 
 export const SubLiOption = styled.p`
@@ -101,22 +110,59 @@ export const SubLiOption = styled.p`
   padding-top: 5px;
 
   font-size: 16px;
+  color: ${props => props.theme.colors.fontColor};
+
+  @media (max-height: 360px) {
+    font-size: 12px;
+  }
 `
 
 export const ArrowDownIcon = styled(FaArrowDown)`
-  width: 15px;
-  height: 15px;
+  width: 13px;
+  height: 13px;
 
-  color: grey;
+  color: ${props => props.theme.colors.sideBarIconsColor};
 
   padding-left: 15px;
+
+  @media (max-height: 360px) {
+    width: 10px;
+    height: 10px;
+  }
 `
 
 export const EventIcon = styled(IoIosColorPalette)`
   width: 18px;
   height: 18px;
 
-  color: grey;
+  color: ${props => props.theme.colors.sideBarIconsColor};
+
+  padding-left: 20px;
+`
+
+export const ScheduleIcon = styled(FaClock)`
+  width: 16px;
+  height: 16px;
+
+  color: ${props => props.theme.colors.sideBarIconsColor};
+
+  padding-left: 20px;
+`
+
+export const AdminIcon = styled(FaUser)`
+  width: 16px;
+  height: 16px;
+
+  color: ${props => props.theme.colors.sideBarIconsColor};
+
+  padding-left: 20px;
+`
+
+export const SignInIcon = styled(FaSignInAlt)`
+  width: 16px;
+  height: 16px;
+
+  color: ${props => props.theme.colors.sideBarIconsColor};
 
   padding-left: 20px;
 `

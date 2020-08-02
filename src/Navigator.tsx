@@ -19,7 +19,9 @@ export default function Navigator() {
         <GlobalStyle />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/events' component={Events} />
+          <Route path='/events'>
+            <Events />
+          </Route>
         </Switch>
       </ThemeProvider>
     </Router>

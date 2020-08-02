@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import * as Styled from './styles'
 
@@ -9,15 +10,24 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
+  const history = useHistory()
+
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [showEventOptions, setShowEventOptions] = useState<boolean>(false) 
+  const [showScheduleOptions, setShowScheduleOptions] = useState<boolean>(false)
+  const [showAdminOptions, setShowAdminOptions] = useState<boolean>(false)
 
-  function sideBarEventOptions() {
-    if (showEventOptions) {
+  function renderSideBarOptions(optionBoolean: boolean, menuOptions: Array<String>) {
+    if (optionBoolean) {
       return (
         <Styled.SubLi>
-          <Styled.SubLiOption>Criar</Styled.SubLiOption>
-          <Styled.SubLiOption>Ver</Styled.SubLiOption>
+          {menuOptions.map((value, index) => {
+            return (
+              <Styled.SidebarButton key={index} onClick={() => history.push('/')} >
+                <Styled.SubLiOption key={index}>{value}</Styled.SubLiOption>
+              </Styled.SidebarButton>
+            )
+          })}
         </Styled.SubLi>
       )
     }
@@ -35,12 +45,39 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
             <Styled.Li>
               <Styled.SidebarButton onClick={() => handleBooleanState(showEventOptions, setShowEventOptions)} >
                 <Styled.EventIcon />
-                <Styled.LiOption>Home</Styled.LiOption>
+                <Styled.LiOption>Eventos</Styled.LiOption>
                 <Styled.ArrowDownIcon />
               </Styled.SidebarButton>
             </Styled.Li>
             
-            {sideBarEventOptions()}
+            {renderSideBarOptions(showEventOptions, ['Criar', 'Ver'])}
+
+            <Styled.Li>
+              <Styled.SidebarButton onClick={() => handleBooleanState(showScheduleOptions, setShowScheduleOptions)} >
+                <Styled.ScheduleIcon />
+                <Styled.LiOption>Cronograma</Styled.LiOption>
+                <Styled.ArrowDownIcon />
+              </Styled.SidebarButton>
+            </Styled.Li>
+
+            {renderSideBarOptions(showScheduleOptions, ['Criar', 'Ver', 'Enviar'])}
+
+            <Styled.Li>
+              <Styled.SidebarButton onClick={() => handleBooleanState(showAdminOptions, setShowAdminOptions)} >
+                <Styled.AdminIcon />
+                <Styled.LiOption>Administrador</Styled.LiOption>
+                <Styled.ArrowDownIcon />
+              </Styled.SidebarButton>
+            </Styled.Li>
+
+            {renderSideBarOptions(showAdminOptions, ['Criar', 'Configurações'])}
+
+            <Styled.Li>
+              <Styled.SidebarButton onClick={() => history.push('/')} >
+                <Styled.SignInIcon />
+                <Styled.LiOption>Sair</Styled.LiOption>
+              </Styled.SidebarButton>
+            </Styled.Li>
           </ul>
         </Styled.sideBarContainer>
       )
