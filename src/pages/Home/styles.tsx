@@ -64,6 +64,8 @@ export const Title = styled.h2`
   margin-top: 10px;
   margin-bottom: 60px;
 
+  color: ${props => props.theme.colors.fontColor};
+
   @media (max-height: 550px) {
     margin-bottom: 20px;
   }
@@ -117,6 +119,8 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 export const CheckboxMessage = styled.h3`
   font-size: 14px;
   margin-left: 5px;
+
+  color: ${props => props.theme.colors.fontColor};
 `
 
 export const checkAdminButton = styled.button`
