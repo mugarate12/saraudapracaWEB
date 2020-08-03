@@ -5,7 +5,7 @@ import * as Styled from './styles'
 interface InputProps {
   value: string;
   handleValue: (e: ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
+  placeholder?: string;
   type?: string;
 }
 

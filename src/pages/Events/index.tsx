@@ -8,13 +8,20 @@ import * as Styled from './styles'
 
 export default function Events() {
   const [eventName, setEventName] = useState<string>('')
+  const [date, setDate] = useState<string>('')
 
   function handleEventName(e: ChangeEvent<HTMLInputElement>) {
     setEventName(e.target.value)
   }
 
+  function handleDate(e: ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value)
+
+    setDate(e.target.value)
+  }
+  
   function handleButton() {
-    console.log('ok')
+    console.log(eventName, date);
   }
 
   return (
@@ -26,6 +33,7 @@ export default function Events() {
           <Styled.Title>Criar evento</Styled.Title>
 
           <Input value={eventName} handleValue={handleEventName} placeholder='Sarau da praça' />
+          <Input value={date} handleValue={handleDate} type='date' />
 
           <ForwardButton onClick={handleButton} />
         </Styled.FormContainer>
