@@ -5,6 +5,7 @@ import api from './../../config/axios'
 
 import Header from './../../components/Header/index'
 import ForwardButton from './../../components/ForwardButton/index'
+import Input from './../../components/Input/index'
 
 import * as Styled from './styles'
 
@@ -59,8 +60,9 @@ export default function Home() {
         <Styled.LoginContainer>
           <Styled.Title>Iniciar Sessão</Styled.Title>
 
-          <Styled.Input value={email} onChange={handleEmail} placeholder='seuemail@mail.com'/>
-          <Styled.Input value={password} onChange={handlePassword} type='password' placeholder='suasenha123'/>
+          {/* <Styled.Input value={email} onChange={handleEmail} placeholder='seuemail@mail.com'/> */}
+          <Input value={email} handleValue={handleEmail} placeholder='seuemail@mail.com' />
+          <Input value={password} handleValue={handlePassword} type='password' placeholder='suasenha123'/>
 
           <Styled.CheckboxContainer>
             <Styled.Checkbox defaultChecked={checkboxState} onChange={handleCheckBox}/>
