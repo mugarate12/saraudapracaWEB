@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   min-width: 70%;
-  height: 200px;
+  min-height: 200px;
+  max-height: 50vh;
 
   background-color: ${props => props.theme.colors.inputContainerColor};
 
@@ -39,4 +40,12 @@ export const CardHeaderLine = styled.div`
   border-radius: 10px;
 
   background-color: yellow;
+`
+
+export const CardBody = styled.body`
+  width: 100%;
+  height: 90%;
+
+  background-color: ${props => props.theme.colors.inputContainerColor};
+  
 `

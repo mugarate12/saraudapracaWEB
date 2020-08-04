@@ -15,6 +15,7 @@ export const Container = styled.div`
   -moz-background-size: cover;
   -o-background-size: cover;
 `
+
 export const ContentContainer = styled.div`
   min-height: 80%;
   max-height: 100%;
