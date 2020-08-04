@@ -15,8 +15,6 @@ export default function Events() {
   }
 
   function handleDate(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value)
-
     setDate(e.target.value)
   }
   

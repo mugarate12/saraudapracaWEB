@@ -43,7 +43,7 @@ export default function Home() {
   
           console.log(response.data.token)
 
-          history.push('/events')
+          history.push('/events/create')
         })
         .catch((err: ErrorEvent) => console.log(err))
     } else {

@@ -11,6 +11,7 @@ import DefaultTheme from './styles/themes/default'
 
 import Home from './pages/Home/index'
 import Events from './pages/Events/index'
+import EventList from './pages/EventsList/index'
 
 export default function Navigator() {
   return (
@@ -19,9 +20,8 @@ export default function Navigator() {
         <GlobalStyle />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/events'>
-            <Events />
-          </Route>
+          <Route path='/events/create' component={Events} />
+          <Route path='/events/list' component={EventList} />
         </Switch>
       </ThemeProvider>
     </Router>
