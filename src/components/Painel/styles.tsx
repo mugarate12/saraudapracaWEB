@@ -5,6 +5,8 @@ export const Container = styled.div`
   min-height: 200px;
   max-height: 50vh;
 
+  padding-bottom: 10px;
+
   background-color: ${props => props.theme.colors.inputContainerColor};
 
   /* provisorio */
@@ -44,7 +46,13 @@ export const CardHeaderLine = styled.div`
 
 export const CardBody = styled.body`
   width: 100%;
-  height: 90%;
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
 
   background-color: ${props => props.theme.colors.inputContainerColor};
   

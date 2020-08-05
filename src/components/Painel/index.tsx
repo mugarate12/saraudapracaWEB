@@ -7,7 +7,7 @@ import * as Styled from './styles'
 interface PainelProps {
   PainelName: string;
   Icon: IconType;
-  children?: ReactChild;
+  children?: Array<ReactChild>;
 }
 
 const Painel: React.FC<PainelProps> = ({ PainelName, Icon, children }) => {
