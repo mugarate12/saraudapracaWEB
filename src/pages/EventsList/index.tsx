@@ -10,7 +10,7 @@ import * as Styled from './styles'
 export default function EventList() {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
   const [showEventPainel, setShowEventPainel] = useState<boolean>(true)
-  const [showParticipantsPainel, setShowParticipantsPainel] = useState<boolean>(true)
+  const [showParticipantsPainel, setShowParticipantsPainel] = useState<boolean>(false)
 
   function eventsPainel() {
     if (showEventPainel) {
@@ -84,7 +84,7 @@ export default function EventList() {
 
     return array.map((value, index) => {
       return (
-        <Styled.ItemContainer key={index} onClick={() => setShowEventPainel(!showEventPainel)} >
+        <Styled.ItemContainer key={index} onClick={() => handleEventButton()} >
           <Styled.Item>
             <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
           </Styled.Item>
@@ -102,13 +102,13 @@ export default function EventList() {
 
     return array.map((value, index) => {
       return (
-        <Styled.ItemContainer key={index} >
+        <Styled.ItemContainerParticipant key={index} >
           <Styled.ParticipantItem>
             <Styled.ItemContent>Nome do fulano</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
-            <Styled.ItemContent>serjumano@gmail.com</Styled.ItemContent>
+            <Styled.ItemContent>serjumano@gmail.commmmmmmmmmmmmm</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
@@ -122,9 +122,14 @@ export default function EventList() {
           <Styled.ParticipantItem>
             <Styled.ItemContent>matt_cardosoo</Styled.ItemContent>
           </Styled.ParticipantItem>
-        </Styled.ItemContainer>
+        </Styled.ItemContainerParticipant>
       )
     })
+  }
+
+  function handleEventButton() {
+    setShowEventPainel(!showEventPainel)
+    setShowParticipantsPainel(!showParticipantsPainel)
   }
 
   return (
@@ -132,7 +137,7 @@ export default function EventList() {
       <Header haveMenu={true} />
 
       <Styled.ContentContainer>
-        {/* {eventsPainel()} */}
+        {eventsPainel()}
         {participantsPainel()}
       </Styled.ContentContainer>
     </Styled.Container>

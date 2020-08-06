@@ -128,6 +128,8 @@ export const Item = styled.div`
 
 export const ItemContent = styled.p`
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   margin-left: 5px;
 `
@@ -184,4 +186,15 @@ export const ParticipantItem = styled.div`
   border-width: 2px;
   border-color: ${props => props.theme.colors.borderColor};
   border-style: solid;
+`
+
+export const ItemContainerParticipant = styled.div`
+  border: none 0;
+  background-color: transparent;
+  
+  height: 20px;
+  width: 90%;
+
+  display: flex;
+  flex-direction: row;
 `
