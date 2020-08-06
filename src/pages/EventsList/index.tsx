@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IoIosColorPalette } from 'react-icons/io'
+import { FaUsers } from 'react-icons/fa'
 
 import Header from './../../components/Header/index'
 import Painel from './../../components/Painel/index'
@@ -8,29 +9,12 @@ import * as Styled from './styles'
 
 export default function EventList() {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
+  const [showEventPainel, setShowEventPainel] = useState<boolean>(true)
+  const [showParticipantsPainel, setShowParticipantsPainel] = useState<boolean>(true)
 
-  function handleEvents() {
-    const array = [1, 2, 3]
-
-    return array.map((value, index) => {
+  function eventsPainel() {
+    if (showEventPainel) {
       return (
-        <Styled.ItemContainer key={index}>
-          <Styled.Item>
-            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
-          </Styled.Item>
-          <Styled.Item>
-            <Styled.ItemContent>data do eventinho</Styled.ItemContent>
-          </Styled.Item>
-        </Styled.ItemContainer>
-      )
-    })
-  }
-
-  return (
-    <Styled.Container>
-      <Header haveMenu={true} />
-
-      <Styled.ContentContainer>
         <Painel PainelName='Eventos' Icon={IoIosColorPalette}>
           <Styled.CheckboxContainer>
             <Styled.Checkbox  defaultChecked={checkboxState} onChange={() => setCheckboxState(!checkboxState)} />
@@ -53,6 +37,103 @@ export default function EventList() {
 
           {/* por algum motivo, se esse comentario não existir, deixa de funcionar */}
         </Painel>
+      )
+    }
+  }
+
+  function participantsPainel() {
+    if (showParticipantsPainel) {
+      return(
+        <Painel PainelName='Participantes' Icon={FaUsers}>
+          <Styled.ItensTitleContainer>
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Name</Styled.ItemTitle>
+              <Styled.ItemNameIcon />
+            </Styled.TitleContainer>
+
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Email</Styled.ItemTitle>
+              <Styled.ItemEmailIcon />
+            </Styled.TitleContainer>
+
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Atividade</Styled.ItemTitle>
+              <Styled.ItemActivityIcon />
+            </Styled.TitleContainer>
+
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Whatsapp</Styled.ItemTitle>
+              <Styled.ItemWhatsappIcon />
+            </Styled.TitleContainer>
+
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Instagram</Styled.ItemTitle>
+              <Styled.ItemInstagramIcon />
+            </Styled.TitleContainer>
+          </Styled.ItensTitleContainer>
+
+          {handleParticipants()}
+          {/*  */}
+        </Painel>
+      )
+    }
+  }
+
+  function handleEvents() {
+    const array = [1, 2, 3]
+
+    return array.map((value, index) => {
+      return (
+        <Styled.ItemContainer key={index} onClick={() => setShowEventPainel(!showEventPainel)} >
+          <Styled.Item>
+            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+          </Styled.Item>
+
+          <Styled.Item>
+            <Styled.ItemContent>08/09/2010</Styled.ItemContent>
+          </Styled.Item>
+        </Styled.ItemContainer>
+      )
+    })
+  }
+
+  function handleParticipants() {
+    const array =  [1, 2, 4]
+
+    return array.map((value, index) => {
+      return (
+        <Styled.ItemContainer key={index} >
+          <Styled.ParticipantItem>
+            <Styled.ItemContent>Nome do fulano</Styled.ItemContent>
+          </Styled.ParticipantItem>
+
+          <Styled.ParticipantItem>
+            <Styled.ItemContent>serjumano@gmail.com</Styled.ItemContent>
+          </Styled.ParticipantItem>
+
+          <Styled.ParticipantItem>
+            <Styled.ItemContent>Cantar</Styled.ItemContent>
+          </Styled.ParticipantItem>
+
+          <Styled.ParticipantItem>
+            <Styled.ItemContent>82993991231</Styled.ItemContent>
+          </Styled.ParticipantItem>
+
+          <Styled.ParticipantItem>
+            <Styled.ItemContent>matt_cardosoo</Styled.ItemContent>
+          </Styled.ParticipantItem>
+        </Styled.ItemContainer>
+      )
+    })
+  }
+
+  return (
+    <Styled.Container>
+      <Header haveMenu={true} />
+
+      <Styled.ContentContainer>
+        {/* {eventsPainel()} */}
+        {participantsPainel()}
       </Styled.ContentContainer>
     </Styled.Container>
   )

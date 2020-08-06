@@ -1,7 +1,9 @@
 import styled from 'styled-components'
-import { FaAddressCard, FaCalendar } from 'react-icons/fa'
+import { FaAddressCard, FaCalendar, FaEnvelope, FaPaintBrush, FaWhatsapp, FaInstagram } from 'react-icons/fa'
 
 import backgroundImage from './../../assets/imgs/event-background.svg'
+
+const iconSize = 14
 
 export const Container = styled.div`
   height: 100vh;
@@ -82,12 +84,13 @@ export const ItemTitle = styled.h3`
 `
 
 export const ItemNameIcon = styled(FaAddressCard)`
-  font-size: 14px;
+  font-size: ${iconSize}px;
 `
 
 export const ItemDateIcon = styled(FaCalendar)`
-  font-size: 14px;
+  font-size: ${iconSize}px;
 `
+
 export const ItemContainer = styled.button`
   border: none 0;
   background-color: transparent;
@@ -128,6 +131,7 @@ export const ItemContent = styled.p`
 
   margin-left: 5px;
 `
+
 export const ItemButtonContainer = styled.button`
   border: none 0;
   background-color: transparent;
@@ -142,4 +146,42 @@ export const ItemButtonContainer = styled.button`
   :hover {
     opacity: 0.5;
   }
+`
+
+export const TitleParticipantContainer = styled.div`
+  width: 20%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+export const ItemEmailIcon = styled(FaEnvelope)`
+  font-size: ${iconSize}px;
+`
+
+export const ItemActivityIcon = styled(FaPaintBrush)`
+  font-size: ${iconSize}px;
+`
+
+export const ItemWhatsappIcon = styled(FaWhatsapp)`
+  font-size: ${iconSize}px;
+`
+
+export const ItemInstagramIcon = styled(FaInstagram)`
+  font-size: ${iconSize}px;
+`
+
+export const ParticipantItem = styled.div`
+  width: 18%;
+
+  display: flex;
+  flex-direction: row;
+
+  background-color: transparent;
+
+  border-width: 2px;
+  border-color: ${props => props.theme.colors.borderColor};
+  border-style: solid;
 `
