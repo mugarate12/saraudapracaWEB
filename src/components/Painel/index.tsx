@@ -1,27 +1,39 @@
-import React, { ReactChild } from 'react'
-
-import { IconType } from 'react-icons'
+import React, {  useState } from 'react'
 
 import * as Styled from './styles'
 
-interface PainelProps {
-  PainelName: string;
-  Icon: IconType;
-  children?: Array<ReactChild>;
+import PainelBody from './../PainelBody/index'
+
+enum Name {
+  Participants = 'Participantes',
+  Events = 'Eventos'
 }
 
-const Painel: React.FC<PainelProps> = ({ PainelName, Icon, children }) => {
+interface PainelProps {
+  PainelName: Name;
+}
+
+const Painel: React.FC<PainelProps> = ({ PainelName }) => {
+  const [PainelState, setPainelState] = useState<Name>(PainelName)
+  
+  function handlePainelName() {
+    if ( PainelState === Name.Events) {
+      setPainelState(Name.Participants)
+    } else {
+      setPainelState(Name.Events)
+    }
+  }
+
   return (
     <Styled.Container>
       <Styled.CardHeader>
-        <Styled.CardTitle>{PainelName}</Styled.CardTitle>
-        {!!Icon ? <Icon style={{ fontSize: '16px', paddingLeft: '10px' }} /> : null}
+        <Styled.CardTitle>{PainelState}</Styled.CardTitle>
+        {PainelState === Name.Events ? <Styled.EventIcon /> : <Styled.ParticipantsIcon />}
         <Styled.CardHeaderLine />
       </Styled.CardHeader>
 
       <Styled.CardBody>
-        {/* aceita que coloque componentes e tags dentro deste */}
-        {children}
+        <PainelBody type={PainelState} handleType={handlePainelName} />
       </Styled.CardBody>
     </Styled.Container>
   )

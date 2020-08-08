@@ -34,6 +34,8 @@ export const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
+  padding-bottom: 20px;
+
   background-color: ${props => props.theme.colors.inputContainerColor};
 
   border-width: 1px;

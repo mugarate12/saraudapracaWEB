@@ -1,4 +1,8 @@
 import styled from 'styled-components'
+import { IoIosColorPalette } from 'react-icons/io'
+import { FaUsers } from 'react-icons/fa'
+
+const iconSize = '16px'
 
 export const Container = styled.div`
   min-width: 70%;
@@ -44,7 +48,7 @@ export const CardHeaderLine = styled.div`
   background-color: yellow;
 `
 
-export const CardBody = styled.body`
+export const CardBody = styled.div`
   width: 100%;
   min-height: 200px;
 
@@ -56,4 +60,16 @@ export const CardBody = styled.body`
 
   background-color: ${props => props.theme.colors.inputContainerColor};
   
+`
+
+export const EventIcon = styled(IoIosColorPalette)`
+  font-size: ${iconSize};
+
+  padding-left: 10px;
+`
+
+export const ParticipantsIcon = styled(FaUsers)`
+  font-size: ${iconSize};
+
+  padding-left: 10px;
 `
