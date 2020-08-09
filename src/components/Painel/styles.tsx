@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { IoIosColorPalette } from 'react-icons/io'
-import { FaUsers } from 'react-icons/fa'
+import { FaUsers, FaArrowLeft } from 'react-icons/fa'
 
 const iconSize = '16px'
 
@@ -72,4 +72,24 @@ export const ParticipantsIcon = styled(FaUsers)`
   font-size: ${iconSize};
 
   padding-left: 10px;
+`
+
+export const BackIcon = styled(FaArrowLeft)`
+  font-size: 13px;
+
+  padding-left: 10px;
+`
+
+export const BackButtonContainer = styled.button`
+  border: 0 none;
+  background-color: transparent;
+
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+  }
+
+  :hover {
+    opacity: 0.5;
+  }
 `

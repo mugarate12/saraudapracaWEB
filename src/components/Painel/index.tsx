@@ -27,6 +27,11 @@ const Painel: React.FC<PainelProps> = ({ PainelName }) => {
   return (
     <Styled.Container>
       <Styled.CardHeader>
+        {PainelState === Name.Participants? (
+          <Styled.BackButtonContainer onClick={() => setPainelState(Name.Events)} >
+            <Styled.BackIcon />
+          </Styled.BackButtonContainer>
+        ) : null}
         <Styled.CardTitle>{PainelState}</Styled.CardTitle>
         {PainelState === Name.Events ? <Styled.EventIcon /> : <Styled.ParticipantsIcon />}
         <Styled.CardHeaderLine />
