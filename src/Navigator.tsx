@@ -12,6 +12,7 @@ import DefaultTheme from './styles/themes/default'
 import Home from './pages/Home/index'
 import Events from './pages/Events/index'
 import EventList from './pages/EventsList/index'
+import Schedule from './pages/Schedule/index'
 
 export default function Navigator() {
   return (
@@ -22,6 +23,12 @@ export default function Navigator() {
           <Route exact path='/' component={Home} />
           <Route path='/events/create' component={Events} />
           <Route path='/events/list' component={EventList} />
+          <Route path='/schedule/view' >
+            <Schedule scheduleView />
+          </Route>
+          <Route path='/schedule/send' >
+            <Schedule scheduleSend />
+          </Route>
         </Switch>
       </ThemeProvider>
     </Router>

@@ -3,17 +3,30 @@ import React, { useState } from 'react'
 import * as Styled from './styles'
 
 enum Name {
-  Participants = 'Participantes',
-  Events = 'Eventos'
+  Events = 'Events',
+  Participants = 'Participants',
+  ScheduleView = 'ScheduleView',
+  ScheduleSend = 'ScheduleSend',
 }
 
 interface PainelBodyProps {
   type: Name;
   handleType: () => void;
+  scheduleSend ?: boolean;
 }
 
-const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType }) => {
+// Participantes do cronograma vem com Nome e Hora
+
+const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
+
+  function handleEventButtonAction() {
+    if (scheduleSend) {
+      alert("O cronograma foi enviado a todos os participantes")
+    } else {
+      handleType()
+    }
+  }
 
   function handleTypePainel() {
     if (type === Name.Events) {
@@ -39,7 +52,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType }) => {
           {handleEvents()}
         </>
       )
-    } else {
+    } else if (type === Name.Participants) {
       return (
         <>
           <Styled.ItensTitleContainer>
@@ -72,6 +85,28 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType }) => {
           {handleParticipants()}
         </>
       )
+    } else if (type === Name.ScheduleView) {
+      return (
+        <>
+          <Styled.ItensTitleContainer>
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Name</Styled.ItemTitle>
+              <Styled.ItemNameIcon />
+            </Styled.TitleContainer>
+              
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Horario</Styled.ItemTitle>
+              <Styled.ItemDateIcon />
+            </Styled.TitleContainer>
+          </Styled.ItensTitleContainer>
+
+          {handleScheduleParticipants()}
+        </>
+      )
+    } else if (type === Name.ScheduleSend){
+      return(
+        <></>
+      )
     }
   }
 
@@ -80,7 +115,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType }) => {
 
     return array.map((value, index) => {
       return (
-        <Styled.ItemContainer key={index} onClick={() => handleType()} >
+        <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction()} >
           <Styled.Item>
             <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
           </Styled.Item>
@@ -118,6 +153,24 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType }) => {
           <Styled.ParticipantItem>
             <Styled.ItemContent>matt_cardosoo</Styled.ItemContent>
           </Styled.ParticipantItem>
+        </Styled.ItemContainerParticipant>
+      )
+    })
+  }
+
+  function handleScheduleParticipants() {
+    const array = [1, 2, 3]
+
+    return array.map((value, index) => {
+      return (
+        <Styled.ItemContainerParticipant key={index} >
+          <Styled.Item>
+            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+          </Styled.Item>
+
+          <Styled.Item>
+            <Styled.ItemContent>19:00</Styled.ItemContent>
+          </Styled.Item>
         </Styled.ItemContainerParticipant>
       )
     })

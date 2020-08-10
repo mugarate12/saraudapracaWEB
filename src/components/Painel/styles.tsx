@@ -84,6 +84,9 @@ export const BackButtonContainer = styled.button`
   border: 0 none;
   background-color: transparent;
 
+  width: none;
+  height: none;
+
   :focus {
     box-shadow: 0 0 0 0;
     outline: 0;
