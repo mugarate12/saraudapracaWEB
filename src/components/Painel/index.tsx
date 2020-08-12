@@ -15,9 +15,10 @@ interface PainelProps {
   PainelName: Name;
   scheduleView?: boolean;
   scheduleSend?: boolean;
+  scheduleCreate ?: boolean;
 }
 
-const Painel: React.FC<PainelProps> = ({ PainelName, scheduleView, scheduleSend }) => {
+const Painel: React.FC<PainelProps> = ({ PainelName, scheduleView, scheduleSend, scheduleCreate }) => {
   const [PainelState, setPainelState] = useState<Name>(PainelName)
   
   function handlePainelState() {
@@ -54,7 +55,7 @@ const Painel: React.FC<PainelProps> = ({ PainelName, scheduleView, scheduleSend 
       </Styled.CardHeader>
 
       <Styled.CardBody>
-        <PainelBody type={PainelState} handleType={handlePainelState} scheduleSend={scheduleSend}/>
+        <PainelBody type={PainelState} handleType={handlePainelState} scheduleSend={scheduleSend} scheduleCreate={scheduleCreate} />
       </Styled.CardBody>
     </Styled.Container>
   )

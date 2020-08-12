@@ -29,6 +29,9 @@ export default function Navigator() {
           <Route path='/schedule/send' >
             <Schedule scheduleSend />
           </Route>
+          <Route path='/schedule/create' >
+            <Schedule scheduleCreate />
+          </Route>
         </Switch>
       </ThemeProvider>
     </Router>

@@ -13,11 +13,12 @@ interface PainelBodyProps {
   type: Name;
   handleType: () => void;
   scheduleSend ?: boolean;
+  scheduleCreate ?: boolean;
 }
 
 // Participantes do cronograma vem com Nome e Hora
 
-const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend }) => {
+const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend, scheduleCreate }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
 
   function handleEventButtonAction() {
@@ -52,7 +53,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend 
           {handleEvents()}
         </>
       )
-    } else if (type === Name.Participants) {
+    } else if (type === Name.Participants && !scheduleCreate) {
       return (
         <>
           <Styled.ItensTitleContainer>
@@ -106,6 +107,29 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend 
     } else if (type === Name.ScheduleSend){
       return(
         <></>
+      )
+    } else if (scheduleCreate) {
+      return (
+        <>
+          <Styled.ItensTitleContainer>
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Name</Styled.ItemTitle>
+              <Styled.ItemNameIcon />
+            </Styled.TitleContainer>
+              
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Atividade</Styled.ItemTitle>
+              <Styled.ItemActivityIcon />
+            </Styled.TitleContainer>
+
+            <Styled.TitleContainer>
+              <Styled.ItemTitle>Horario</Styled.ItemTitle>
+              <Styled.ItemDateIcon />
+            </Styled.TitleContainer>
+          </Styled.ItensTitleContainer>
+
+          {handleScheduleCreate()}
+        </>
       )
     }
   }
@@ -171,6 +195,26 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend 
           <Styled.Item>
             <Styled.ItemContent>19:00</Styled.ItemContent>
           </Styled.Item>
+        </Styled.ItemContainerParticipant>
+      )
+    })
+  }
+
+  function handleScheduleCreate() {
+    const array = [1, 2, 3]
+
+    return array.map((value, index) => {
+      return (
+        <Styled.ItemContainerParticipant key={index} >
+          <Styled.Item>
+            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+          </Styled.Item>
+
+          <Styled.Item>
+            <Styled.ItemContent>Recitar</Styled.ItemContent>
+          </Styled.Item>
+
+          <Styled.HourInputParticipant placeholder='digite um horario'/>
         </Styled.ItemContainerParticipant>
       )
     })

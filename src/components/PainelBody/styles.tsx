@@ -64,7 +64,7 @@ export const ItemNameIcon = styled(FaAddressCard)`
 `
 
 export const ItemDateIcon = styled(FaCalendar)`
-  font-size: ${iconSize}px;
+  font-size: ${iconSize - 2}px;
 `
 
 export const ItemEmailIcon = styled(FaEnvelope)`
@@ -150,4 +150,23 @@ export const ParticipantItem = styled.div`
   border-width: 2px;
   border-color: ${props => props.theme.colors.borderColor};
   border-style: solid;
+`
+
+export const HourInputParticipant = styled.input`
+  width: 48%;
+
+  padding-left: 5px;
+
+  background-color: ${props => props.theme.colors.inputBackgroundColor};
+
+  border-style: none;
+  
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${props => props.theme.colors.borderColor};
+
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+  }
 `

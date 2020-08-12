@@ -17,13 +17,18 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
   const [showScheduleOptions, setShowScheduleOptions] = useState<boolean>(false)
   const [showAdminOptions, setShowAdminOptions] = useState<boolean>(false)
 
-  function renderSideBarOptions(optionBoolean: boolean, menuOptions: Array<String>) {
+  function renderSideBarOptions(optionBoolean: boolean, menuOptions: Array<String>, pathOptions?: Array<String>) {
+    function handleSideBarButton(index: number) {
+      history.push(`${!!pathOptions ? pathOptions[index] : '/'}`)
+      setShowMenu(false)
+    }
+    
     if (optionBoolean) {
       return (
         <Styled.SubLi>
           {menuOptions.map((value, index) => {
             return (
-              <Styled.SidebarButton key={index} onClick={() => history.push('/')} >
+              <Styled.SidebarButton key={index} onClick={() => handleSideBarButton(index)} >
                 <Styled.SubLiOption key={index}>{value}</Styled.SubLiOption>
               </Styled.SidebarButton>
             )
@@ -50,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
               </Styled.SidebarButton>
             </Styled.Li>
             
-            {renderSideBarOptions(showEventOptions, ['Criar', 'Ver'])}
+            {renderSideBarOptions(showEventOptions, ['Criar', 'Ver'], ['/events/create', '/events/list'])}
 
             <Styled.Li>
               <Styled.SidebarButton onClick={() => handleBooleanState(showScheduleOptions, setShowScheduleOptions)} >
@@ -60,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
               </Styled.SidebarButton>
             </Styled.Li>
 
-            {renderSideBarOptions(showScheduleOptions, ['Criar', 'Ver', 'Enviar'])}
+            {renderSideBarOptions(showScheduleOptions, ['Criar', 'Ver', 'Enviar'], ['/schedule/create', '/schedule/view', '/schedule/send'])}
 
             <Styled.Li>
               <Styled.SidebarButton onClick={() => handleBooleanState(showAdminOptions, setShowAdminOptions)} >

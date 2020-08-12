@@ -15,15 +15,16 @@ enum Name {
 interface ScheduleProps {
   scheduleView?: boolean;
   scheduleSend?: boolean;
+  scheduleCreate?: boolean;
 }
 
-const Schedule: React.FC<ScheduleProps> = ({ scheduleView, scheduleSend }) => {
+const Schedule: React.FC<ScheduleProps> = ({ scheduleView, scheduleSend, scheduleCreate }) => {
   return (
     <Styled.Container>
       <Header haveMenu={true} />
 
       <Styled.ContentContainer>
-        <Painel PainelName={Name.Events} scheduleView={scheduleView} scheduleSend={scheduleSend} />
+        <Painel PainelName={Name.Events} scheduleView={scheduleView} scheduleSend={scheduleSend} scheduleCreate={scheduleCreate} />
       </Styled.ContentContainer>
     </Styled.Container>
   )
