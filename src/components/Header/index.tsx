@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
               </Styled.SidebarButton>
             </Styled.Li>
 
-            {renderSideBarOptions(showAdminOptions, ['Criar', 'Configurações'])}
+            {renderSideBarOptions(showAdminOptions, ['Criar', 'Configurações'], ['/admin/create', '/admin/config'])}
 
             <Styled.Li>
               <Styled.SidebarButton onClick={() => history.push('/')} >

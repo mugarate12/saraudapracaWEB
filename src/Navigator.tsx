@@ -13,6 +13,8 @@ import Home from './pages/Home/index'
 import Events from './pages/Events/index'
 import EventList from './pages/EventsList/index'
 import Schedule from './pages/Schedule/index'
+import AdminCreate from './pages/AdminCreate/index'
+import AdminConfig from './pages/AdminConfig/index'
 
 export default function Navigator() {
   return (
@@ -24,14 +26,16 @@ export default function Navigator() {
           <Route path='/events/create' component={Events} />
           <Route path='/events/list' component={EventList} />
           <Route path='/schedule/view' >
-            <Schedule scheduleView scheduleSend={false} scheduleCreate={false} />
+            <Schedule scheduleView />
           </Route>
           <Route path='/schedule/send' >
-            <Schedule scheduleSend scheduleView={false} scheduleCreate={false} />
+            <Schedule scheduleSend />
           </Route>
           <Route path='/schedule/create' >
-            <Schedule scheduleCreate scheduleSend={false} scheduleView={false} />
+            <Schedule scheduleCreate />
           </Route>
+          <Route path='/admin/create' component={AdminCreate} />
+          <Route path='/admin/config' component={AdminConfig} />
         </Switch>
       </ThemeProvider>
     </Router>
