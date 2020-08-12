@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FaAddressCard, FaCalendar, FaEnvelope, FaPaintBrush, FaWhatsapp, FaInstagram } from 'react-icons/fa'
+import { FaAddressCard, FaCalendar, FaEnvelope, FaPaintBrush, FaWhatsapp, FaInstagram, FaArrowRight } from 'react-icons/fa'
 
 const iconSize = 14
 
@@ -152,7 +152,7 @@ export const ParticipantItem = styled.div`
   border-style: solid;
 `
 
-export const HourInputParticipant = styled.input`
+export const HourInputParticipant = styled.input.attrs({ type: 'time' })`
   width: 48%;
 
   padding-left: 5px;
@@ -169,4 +169,41 @@ export const HourInputParticipant = styled.input`
     box-shadow: 0 0 0 0;
     outline: 0;
   }
+`
+
+// button style
+export const Button = styled.button`
+  height: 25px;
+  width: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  align-self: flex-end;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 5%;
+
+  cursor: pointer;
+
+  background-color: ${props => props.theme.colors.buttonColor};
+
+  border: none 0;
+  border-radius: 5px;
+
+  :hover {
+    opacity: 0.8;
+    transition: 0.5s;
+  }
+
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+  }
+`
+
+export const IconButton = styled(FaArrowRight)`
+  font-size: 12px;
 `

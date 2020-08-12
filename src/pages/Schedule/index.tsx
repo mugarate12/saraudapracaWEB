@@ -1,5 +1,6 @@
 import React from 'react'
 
+import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
 import Painel from './../../components/Painel/index'
 
@@ -8,7 +9,6 @@ import * as Styled from './styles'
 enum Name {
   Events = 'Events',
   Participants = 'Participants',
-
 }
 
 
@@ -22,6 +22,7 @@ const Schedule: React.FC<ScheduleProps> = ({ scheduleView, scheduleSend, schedul
   return (
     <Styled.Container>
       <Header haveMenu={true} />
+      <PageTitle content='Cronograma' />
 
       <Styled.ContentContainer>
         <Painel PainelName={Name.Events} scheduleView={scheduleView} scheduleSend={scheduleSend} scheduleCreate={scheduleCreate} />

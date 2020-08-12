@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 
+import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
 import Input from './../../components/Input/index'
 import ForwardButton from './../../components/ForwardButton/index'
@@ -25,7 +26,8 @@ export default function Events() {
   return (
     <Styled.Container>
       <Header haveMenu={true} />
-      
+      <PageTitle content='Eventos' />
+
       <Styled.ContentContainer>
         <Styled.FormContainer>
           <Styled.Title>Criar evento</Styled.Title>

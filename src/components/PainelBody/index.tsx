@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 
 import * as Styled from './styles'
 
@@ -20,6 +20,7 @@ interface PainelBodyProps {
 
 const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend, scheduleCreate }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
+  const [hourParticipant, setHourParticipant] = useState<Array<string>>(['', '', ''])
 
   function handleEventButtonAction() {
     if (scheduleSend) {
@@ -129,6 +130,10 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
           </Styled.ItensTitleContainer>
 
           {handleScheduleCreate()}
+
+          <Styled.Button onClick={handleButton} >
+            <Styled.IconButton />
+          </Styled.Button>
         </>
       )
     }
@@ -201,9 +206,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   function handleScheduleCreate() {
-    const array = [1, 2, 3]
-
-    return array.map((value, index) => {
+    return hourParticipant.map((value, index) => {
       return (
         <Styled.ItemContainerParticipant key={index} >
           <Styled.Item>
@@ -214,10 +217,21 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
             <Styled.ItemContent>Recitar</Styled.ItemContent>
           </Styled.Item>
 
-          <Styled.HourInputParticipant placeholder='digite um horario'/>
+          <Styled.HourInputParticipant defaultValue={hourParticipant[index]} onChange={(e) => setHour(index, e)} placeholder='digite um horario'/>
         </Styled.ItemContainerParticipant>
       )
     })
+  }
+
+  function setHour(index: number, e: ChangeEvent<HTMLInputElement>) {
+    let hourParticipantCopy = hourParticipant
+    hourParticipantCopy[index] = e.target.value
+
+    setHourParticipant(hourParticipantCopy)
+  }
+
+  function handleButton() {
+    console.log(hourParticipant)
   }
   
   return (

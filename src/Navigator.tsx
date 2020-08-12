@@ -24,13 +24,13 @@ export default function Navigator() {
           <Route path='/events/create' component={Events} />
           <Route path='/events/list' component={EventList} />
           <Route path='/schedule/view' >
-            <Schedule scheduleView />
+            <Schedule scheduleView scheduleSend={false} scheduleCreate={false} />
           </Route>
           <Route path='/schedule/send' >
-            <Schedule scheduleSend />
+            <Schedule scheduleSend scheduleView={false} scheduleCreate={false} />
           </Route>
           <Route path='/schedule/create' >
-            <Schedule scheduleCreate />
+            <Schedule scheduleCreate scheduleSend={false} scheduleView={false} />
           </Route>
         </Switch>
       </ThemeProvider>

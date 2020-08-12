@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import api from './../../config/axios'
 
+import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
 import ForwardButton from './../../components/ForwardButton/index'
 import Input from './../../components/Input/index'
@@ -55,6 +56,7 @@ export default function Home() {
   return (
     <Styled.Container>
       <Header />
+      <PageTitle content='Página inicial' />
 
       <Styled.ContentContainer>
         <Styled.LoginContainer>

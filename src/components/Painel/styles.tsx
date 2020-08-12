@@ -6,10 +6,10 @@ const iconSize = '16px'
 
 export const Container = styled.div`
   min-width: 70%;
-  min-height: 200px;
+  /* min-height: 200px; */
   max-height: 50vh;
 
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 
   background-color: ${props => props.theme.colors.inputContainerColor};
 
@@ -50,7 +50,7 @@ export const CardHeaderLine = styled.div`
 
 export const CardBody = styled.div`
   width: 100%;
-  min-height: 200px;
+  /* min-height: 200px; */
 
   display: flex;
   flex-direction: column;
