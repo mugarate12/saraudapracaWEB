@@ -1,14 +1,15 @@
 export default {
   colors: {
-    fontColor: '#333',
+    fontColor: '#2E3133',
 
     borderColor: "#F8FC44",
-    inputContainerColor: "#DEDEDE",
+    inputContainerColor: "#F7FFF2",
     inputBackgroundColor: "#F2EEEE",
     
     buttonColor: "#DA34B5",
+    iconsColor: '#989AB3',
     
-    sideBarIconsColor: '#8A8A8A',
-    sideBarColor: '#FFFFFF'
+    sideBarIconsColor: '#A1ACB3',
+    sideBarColor: '#FFEDE6'
   }
 }

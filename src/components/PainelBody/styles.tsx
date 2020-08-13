@@ -61,26 +61,38 @@ export const ItemTitle = styled.h3`
 
 export const ItemNameIcon = styled(FaAddressCard)`
   font-size: ${iconSize}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ItemDateIcon = styled(FaCalendar)`
   font-size: ${iconSize - 2}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ItemEmailIcon = styled(FaEnvelope)`
   font-size: ${iconSize}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ItemActivityIcon = styled(FaPaintBrush)`
   font-size: ${iconSize}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ItemWhatsappIcon = styled(FaWhatsapp)`
   font-size: ${iconSize}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ItemInstagramIcon = styled(FaInstagram)`
   font-size: ${iconSize}px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 // content styles
@@ -206,4 +218,6 @@ export const Button = styled.button`
 
 export const IconButton = styled(FaArrowRight)`
   font-size: 12px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `

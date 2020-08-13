@@ -9,10 +9,6 @@ export const Container = styled.header`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.borderColor};
 `
 
 export const LogoImg = styled.img`

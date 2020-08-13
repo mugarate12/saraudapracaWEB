@@ -81,6 +81,14 @@ export const Input = styled.input`
   padding-left: 5px;
 
   border: 0 none;
+  
+  border-left-color: ${props => props.theme.colors.borderColor};
+  border-left-style: solid;
+  border-left-width: 2px;
+  
+  border-right-color: ${props => props.theme.colors.borderColor};
+  border-right-style: solid;
+  border-right-width: 2px;
 
   background-color: ${props => props.theme.colors.inputBackgroundColor};
 

@@ -66,18 +66,24 @@ export const EventIcon = styled(IoIosColorPalette)`
   font-size: ${iconSize};
 
   padding-left: 10px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const ParticipantsIcon = styled(FaUsers)`
   font-size: ${iconSize};
 
   padding-left: 10px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const BackIcon = styled(FaArrowLeft)`
   font-size: 13px;
 
   padding-left: 10px;
+
+  color: ${props => props.theme.colors.iconsColor};
 `
 
 export const BackButtonContainer = styled.button`

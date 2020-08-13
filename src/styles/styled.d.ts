@@ -10,6 +10,8 @@ declare module 'styled-components' {
       inputBackgroundColor: string;
       
       buttonColor: string;
+
+      iconsColor: string,
       
       sideBarIconsColor: string;
       sideBarColor: string;
