@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { FaBars, FaArrowDown, FaClock, FaUser, FaSignInAlt } from 'react-icons/fa'
 import { IoMdClose, IoIosColorPalette } from 'react-icons/io'
 
+
 export const Container = styled.header`
   height: 60px;
   width: 100%;
@@ -9,6 +10,7 @@ export const Container = styled.header`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 `
 
 export const LogoImg = styled.img`
@@ -16,6 +18,16 @@ export const LogoImg = styled.img`
   height: 30px;
 
   margin-left: 20px;
+`
+
+export const MenuAndLogoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+export const SwitchContainer = styled.div`
+  margin-right: 20px;
 `
 
 export const SidebarButton = styled.button`

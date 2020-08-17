@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import Switch from 'react-switch'
+import { ThemeContext as MyThemeContext} from './../../Navigator'
+import { ThemeContext } from 'styled-components'
 
 import * as Styled from './styles'
 
@@ -11,6 +14,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
   const history = useHistory()
+  const toogleTheme = useContext(MyThemeContext)
+  const theme = useContext(ThemeContext)
 
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [showEventOptions, setShowEventOptions] = useState<boolean>(false) 
@@ -44,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
         <Styled.sideBarContainer>
           <ul>
             <Styled.SidebarButton onClick={() => handleBooleanState(showMenu, setShowMenu)} >
-              <Styled.ClosedIcon />
+              <Styled.ClosedIcon color={theme.colors.sideBarOpenClosedIconColor} />
             </Styled.SidebarButton>
 
             <Styled.Li>
@@ -102,12 +107,30 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
       )
     }
   }
+
+  function checkedTheme() {
+    return theme.title === 'default' ? false : true
+  }
   
   return (
     <Styled.Container>
-      {handleMenu()}
-      {sideBar()}
-      <Styled.LogoImg src={logo} alt='Logo do Sarau da Praça' />
+      <Styled.MenuAndLogoContainer>
+        {handleMenu()}
+        {sideBar()}
+        <Styled.LogoImg src={logo} alt='Logo do Sarau da Praça' />
+      </Styled.MenuAndLogoContainer>
+
+      <Styled.SwitchContainer>
+        <Switch
+          checked={checkedTheme()}
+          checkedIcon={false}
+          uncheckedIcon={false}
+          onChange={() => toogleTheme()}
+          height={10}
+          width={40}
+          handleDiameter={20}
+        />
+      </Styled.SwitchContainer>
     </Styled.Container>
   )
 }

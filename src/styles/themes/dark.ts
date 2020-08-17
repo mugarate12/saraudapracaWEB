@@ -1,18 +1,20 @@
 export default {
-  title: 'default',
+  title: 'dark',
 
   colors: {
-    fontColor: '#2E3133',
+    // 
+    fontColor: '#C8A2C8',
 
     borderColor: "#F8FC44",
-    inputContainerColor: "#F7FFF2",
+    // 
+    inputContainerColor: "#081129",
     inputBackgroundColor: "#F2EEEE",
     
     buttonColor: "#DA34B5",
     iconsColor: '#989AB3',
     
     sideBarIconsColor: '#A1ACB3',
-    sideBarColor: '#FFEDE6',
-    sideBarOpenClosedIconColor: '#333'
+    sideBarColor: '#333333',
+    sideBarOpenClosedIconColor: '#FFFFFF'
   }
 }
