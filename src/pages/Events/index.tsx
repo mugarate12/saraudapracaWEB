@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 
 import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
@@ -8,8 +9,17 @@ import ForwardButton from './../../components/ForwardButton/index'
 import * as Styled from './styles'
 
 export default function Events() {
+  const history = useHistory()
   const [eventName, setEventName] = useState<string>('')
   const [date, setDate] = useState<string>('')
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token')
+
+  //   if (!token) {
+  //     history.push('/')
+  //   }
+  // })
 
   function handleEventName(e: ChangeEvent<HTMLInputElement>) {
     setEventName(e.target.value)
@@ -20,7 +30,7 @@ export default function Events() {
   }
   
   function handleButton() {
-    console.log(eventName, date);
+    console.log(eventName, date)
   }
 
   return (

@@ -19,24 +19,20 @@ export default function Home() {
   const [password, setPassword] = useState<string>('')
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
 
-  function handleButton() {
+  async function handleButton() {
     if (email && password) {
-      // api.post('/auth/admin', { email, password })
-      //   .then(response => {
-      //     setEmail('')
-      //     setPassword('')
+      await api.post('/auth/admin', { email, password })
+        .then(response => {
+          setEmail('')
+          setPassword('')
 
-      //     if (checkboxState) {
-      //       localStorage.setItem('token', response.data.token)
-      //     }
-  
-      //     console.log(response.data.token)
+          if (checkboxState) {
+            localStorage.setItem('token', response.data.token)
+          }
 
-      //     history.push('/events/create')
-      //   })
-      //   .catch((err: ErrorEvent) => console.log(err))
-
-      history.push('/events/create')
+          history.push('/events/create')
+        })
+        .catch((err: ErrorEvent) => alert('Dados invalidos'))
     } else {
       alert('Preencha todos os campos')
     }
