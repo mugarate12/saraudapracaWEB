@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components'
+
+import usePersistedState from './utils/usePersistedState'
 
 import GlobalStyle from './styles/global'
 import DefaultTheme from './styles/themes/default'
@@ -20,14 +22,14 @@ import AdminConfig from './pages/AdminConfig/index'
 export const ThemeContext = React.createContext(() => {})
 
 export default function Navigator() {
-  const [theme, setTheme] = useState<string>(DefaultTheme.title)
+  const [theme, setTheme] = usePersistedState('theme', DefaultTheme.title)
 
   function toggleTheme() {
-    setTheme(theme === 'default' ? 'dark' : 'default')
+    setTheme(theme === DefaultTheme.title ? DarkTheme.title : DefaultTheme.title)
   }
 
   function Theme() {
-    return theme === 'default' ? DefaultTheme : DarkTheme
+    return theme === DefaultTheme.title ? DefaultTheme : DarkTheme
   }
 
   return (
