@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
         <Styled.sideBarContainer>
           <ul>
             <Styled.SidebarButton onClick={() => handleBooleanState(showMenu, setShowMenu)} >
-              <Styled.ClosedIcon color={theme.colors.sideBarOpenClosedIconColor} />
+              <Styled.ClosedIcon />
             </Styled.SidebarButton>
 
             <Styled.Li>

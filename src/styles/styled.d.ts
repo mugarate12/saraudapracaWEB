@@ -6,13 +6,15 @@ declare module 'styled-components' {
 
     colors: {
       fontColor: string;
+
+      titleColor: string;
       
       borderColor: string;
       inputContainerColor: string;
       inputBackgroundColor: string;
       
       buttonColor: string;
-
+      buttonIconColor: string;
       iconsColor: string,
       
       sideBarIconsColor: string;

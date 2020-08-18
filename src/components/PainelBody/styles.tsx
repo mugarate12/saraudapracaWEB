@@ -137,6 +137,8 @@ export const ItemContent = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  color: ${props => props.theme.colors.fontColor};
+
   margin-left: 5px;
 `
 
@@ -219,5 +221,5 @@ export const Button = styled.button`
 export const IconButton = styled(FaArrowRight)`
   font-size: 12px;
 
-  color: ${props => props.theme.colors.iconsColor};
+  color: ${props => props.theme.colors.buttonIconColor};
 `

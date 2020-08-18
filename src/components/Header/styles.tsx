@@ -72,6 +72,9 @@ export const ClosedIcon = styled(IoMdClose)`
   width: 30px;
   height: 30px;
 
+  color: ${props => props.theme.colors.sideBarOpenClosedIconColor};
+
+
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 20px;

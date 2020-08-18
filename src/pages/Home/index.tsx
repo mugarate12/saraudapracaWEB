@@ -62,7 +62,9 @@ export default function Home() {
           
           <ForwardButton onClick={handleButton}/>
 
-          <Styled.checkAdminButton>não consigo autenticar</Styled.checkAdminButton>
+          <Styled.checkAdminButton>
+            <Styled.TextCheckAdminButton>não consigo autenticar</Styled.TextCheckAdminButton>
+          </Styled.checkAdminButton>
         </Styled.LoginContainer>
       </Styled.ContentContainer>
     </Styled.Container>

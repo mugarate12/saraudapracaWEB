@@ -144,3 +144,7 @@ export const checkAdminButton = styled.button`
     transition: 1s;
   }
 `
+
+export const TextCheckAdminButton = styled.p`
+  color: ${props => props.theme.colors.fontColor};
+`

@@ -29,5 +29,5 @@ export const StyledIcon = styled(FaArrowRight)`
   height: 30px;
   width: 30px;
 
-  color: ${props => props.theme.colors.iconsColor};
+  color: ${props => props.theme.colors.buttonIconColor};
 `
