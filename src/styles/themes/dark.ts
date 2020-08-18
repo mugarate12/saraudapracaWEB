@@ -2,12 +2,11 @@ export default {
   title: 'dark',
 
   colors: {
-    
     fontColor: '#C8A2C8',
 
     titleColor: '#333333',
 
-    borderColor: "#F8FC44",
+    borderColor: "#C8A2C8",
     inputContainerColor: "#081129",
     inputBackgroundColor: "#F2EEEE",
     

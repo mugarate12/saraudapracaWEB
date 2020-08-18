@@ -8,7 +8,7 @@ interface ForwardButtonProps {
 
 const ForwardButton: React.FC<ForwardButtonProps> = ({ onClick }) => {
   return (
-    <Styled.Button onClick={onClick}>
+    <Styled.Button onClick={onClick} >
       <Styled.StyledIcon />
     </Styled.Button>
   )
