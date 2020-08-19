@@ -1,4 +1,6 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
+
+import api from './../../config/axios'
 
 import * as Styled from './styles'
 
@@ -16,11 +18,52 @@ interface PainelBodyProps {
   scheduleCreate ?: boolean;
 }
 
+interface ApiEvents {
+  name: string;
+  date: string;
+}
+
 // Participantes do cronograma vem com Nome e Hora
 
 const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend, scheduleCreate }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
   const [hourParticipant, setHourParticipant] = useState<Array<string>>(['', '', ''])
+
+  const [events, setEvents] = useState<Array<ApiEvents>>([])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token') || ''
+
+    async function fetchEvents() {
+      await api.get('/event?page=1', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          setEvents(response.data.events)
+        })
+        .catch(error => console.log(error))
+    }
+
+    async function fetchEventNotDone() {
+      await api.get('/event/valid', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setEvents(response.data.events)
+      })
+      .catch(error => console.log(error))
+    }
+
+    if (checkboxState) {
+      fetchEventNotDone()
+    } else {
+      fetchEvents()
+    }
+  }, [checkboxState])
 
   function handleEventButtonAction() {
     if (scheduleSend) {
@@ -140,17 +183,15 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   function handleEvents() {
-    const array = [1, 2, 3]
-
-    return array.map((value, index) => {
+    return events.map((event, index) => {
       return (
         <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction()} >
           <Styled.Item>
-            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+            <Styled.ItemContent>{event.name}</Styled.ItemContent>
           </Styled.Item>
 
           <Styled.Item>
-            <Styled.ItemContent>08/09/2010</Styled.ItemContent>
+            <Styled.ItemContent>{event.date}</Styled.ItemContent>
           </Styled.Item>
         </Styled.ItemContainer>
       )

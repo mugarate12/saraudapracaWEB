@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
@@ -12,10 +13,23 @@ enum Name {
 }
 
 export default function EventList() {
+  const history = useHistory()
+  const [token, setToken] = useState<string>('')
+
+  useEffect(() => {
+    const localStorageToken = localStorage.getItem('token')
+    const sessionStorageToken = sessionStorage.getItem('token')
+    setToken((!!localStorageToken ? localStorageToken : sessionStorageToken) || '')
+
+    if (!localStorageToken && !sessionStorageToken) {
+      history.push('/')
+    }
+  }, [token, history])
+
   return (
     <Styled.Container>
       <Header haveMenu={true} />
-      <PageTitle content='Cronograma' />
+      <PageTitle content='Eventos' />
       
       <Styled.ContentContainer>
         <Painel PainelName={Name.Events} />

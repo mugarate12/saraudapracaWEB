@@ -28,6 +28,8 @@ export default function Home() {
 
           if (checkboxState) {
             localStorage.setItem('token', response.data.token)
+          } else {
+            sessionStorage.setItem('token', response.data.token)
           }
 
           history.push('/events/create')

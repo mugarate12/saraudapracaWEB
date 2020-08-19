@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import PageTitle from './../../components/PageTitle/index'
 import Header from './../../components/Header/index'
@@ -8,29 +8,45 @@ import ForwardButton from './../../components/ForwardButton/index'
 
 import * as Styled from './styles'
 
+import api from './../../config/axios'
+
+interface ApiRequestError {
+  error: string;
+  message: string;
+}
+
 export default function Events() {
   const history = useHistory()
   const [eventName, setEventName] = useState<string>('')
   const [date, setDate] = useState<string>('')
+  const [hour, setHour] = useState<string>('')
+  const [token, setToken] = useState<string>('')
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
+  useEffect(() => {
+    const localStorageToken = localStorage.getItem('token')
+    const sessionStorageToken = sessionStorage.getItem('token')
+    setToken((!!localStorageToken ? localStorageToken : sessionStorageToken) || '')
 
-  //   if (!token) {
-  //     history.push('/')
-  //   }
-  // })
-
-  function handleEventName(e: ChangeEvent<HTMLInputElement>) {
-    setEventName(e.target.value)
-  }
-
-  function handleDate(e: ChangeEvent<HTMLInputElement>) {
-    setDate(e.target.value)
-  }
+    if (!localStorageToken && !sessionStorageToken) {
+      history.push('/')
+    }
+  }, [token, history])
   
-  function handleButton() {
-    console.log(eventName, date)
+  async function handleButton() {
+    console.log(eventName, date, hour)
+    console.log(`${date} ${hour}`)
+    console.log(token)
+
+    await api.post('/event', {
+      name: eventName,
+      date: `${date} ${hour}`
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => console.log(response))
+      .catch((error: ApiRequestError) => console.log(error.message))
   }
 
   return (
@@ -42,8 +58,9 @@ export default function Events() {
         <Styled.FormContainer>
           <Styled.Title>Criar evento</Styled.Title>
 
-          <Input value={eventName} handleValue={handleEventName} placeholder='Sarau da praça' />
-          <Input value={date} handleValue={handleDate} type='date' />
+          <Input value={eventName} handleValue={(e) => setEventName(e.target.value)} placeholder='Sarau da praça' />
+          <Input value={date} handleValue={(e) => setDate(e.target.value)} type='date' />
+          <Input value={hour} handleValue={(e) => setHour(e.target.value)} type='time' />
 
           <ForwardButton onClick={handleButton} />
         </Styled.FormContainer>
