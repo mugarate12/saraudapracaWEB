@@ -19,8 +19,18 @@ interface PainelBodyProps {
 }
 
 interface ApiEvents {
+  id: number;
   name: string;
   date: string;
+}
+
+interface ApiParticipants {
+  id: number;
+  name: string;
+  email: string;
+  activity: string;
+  num_phone: string;
+  instagram: string;
 }
 
 // Participantes do cronograma vem com Nome e Hora
@@ -29,11 +39,12 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
   const [hourParticipant, setHourParticipant] = useState<Array<string>>(['', '', ''])
 
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token') || ''
   const [events, setEvents] = useState<Array<ApiEvents>>([])
+  const [eventSelected, setEventSelected] = useState<Number>()
+  const [participants, setParticipants] = useState<Array<ApiParticipants>>([])
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token') || ''
-
     async function fetchEvents() {
       await api.get('/event?page=1', {
         headers: {
@@ -47,7 +58,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
     }
 
     async function fetchEventNotDone() {
-      await api.get('/event/valid', {
+      await api.get('/event/valid?page=1', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -63,13 +74,36 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
     } else {
       fetchEvents()
     }
-  }, [checkboxState])
+  }, [checkboxState, token])
 
-  function handleEventButtonAction() {
+  useEffect(() => {
+    async function fetchParticipants() {
+      await api.get(`/event/${eventSelected}/participats?page=1`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          console.log(response)
+          setParticipants(response.data.participants)
+        })
+        .catch(error => console.log(error))
+    }
+
+    if (eventSelected) {
+      fetchParticipants()
+    }
+  }, [eventSelected, token])
+
+  function handleEventButtonAction(eventID ?: Number) {
     if (scheduleSend) {
       alert("O cronograma foi enviado a todos os participantes")
     } else {
       handleType()
+      if (eventID) {
+        console.log(eventID)
+        setEventSelected(eventID)
+      }
     }
   }
 
@@ -185,7 +219,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   function handleEvents() {
     return events.map((event, index) => {
       return (
-        <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction()} >
+        <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction(event.id)} >
           <Styled.Item>
             <Styled.ItemContent>{event.name}</Styled.ItemContent>
           </Styled.Item>
@@ -199,29 +233,27 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   function handleParticipants() {
-    const array =  [1, 2, 4]
-
-    return array.map((value, index) => {
+    return participants.map((participant) => {
       return (
-        <Styled.ItemContainerParticipant key={index} >
+        <Styled.ItemContainerParticipant key={participant.id} >
           <Styled.ParticipantItem>
-            <Styled.ItemContent>Nome do fulano</Styled.ItemContent>
+            <Styled.ItemContent>{participant.name}</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
-            <Styled.ItemContent>serjumano@gmail.commmmmmmmmmmmmm</Styled.ItemContent>
+            <Styled.ItemContent>{participant.email}</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
-            <Styled.ItemContent>Cantar</Styled.ItemContent>
+            <Styled.ItemContent>{participant.activity}</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
-            <Styled.ItemContent>82993991231</Styled.ItemContent>
+            <Styled.ItemContent>{participant.num_phone}</Styled.ItemContent>
           </Styled.ParticipantItem>
 
           <Styled.ParticipantItem>
-            <Styled.ItemContent>matt_cardosoo</Styled.ItemContent>
+            <Styled.ItemContent>{participant.instagram}</Styled.ItemContent>
           </Styled.ParticipantItem>
         </Styled.ItemContainerParticipant>
       )
