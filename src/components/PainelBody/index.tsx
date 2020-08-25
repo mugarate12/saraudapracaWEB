@@ -62,6 +62,7 @@ interface updateParticipantsSchedule {
 const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend, scheduleCreate }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
   const [hourParticipant, setHourParticipant] = useState<Array<hourParticipantInterface>>([])
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false)
 
   const token = localStorage.getItem('token') || sessionStorage.getItem('token') || ''
   const [events, setEvents] = useState<Array<ApiEvents>>([])
@@ -137,13 +138,28 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
     }
   }, [eventSelected, token, scheduleCreate, participants])
 
-  function handleEventButtonAction(eventID ?: Number) {
+  async function handleEventButtonAction(eventID ?: Number) {
+    setButtonDisable(true)
+
     if (scheduleSend) {
-      alert("O cronograma foi enviado a todos os participantes")
+      await api.get(`/events/${eventID}/schedule/send`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          console.log(response)
+
+          setButtonDisable(false)
+          alert("O cronograma foi enviado a todos os participantes")
+        })
+        .catch(console.log)
+
     } else {
       handleType()
       if (eventID) {
         console.log(eventID)
+        setButtonDisable(false)
         setEventSelected(eventID)
       }
     }
@@ -261,7 +277,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   function handleEvents() {
     return events.map((event, index) => {
       return (
-        <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction(event.id)} >
+        <Styled.ItemContainer key={index} onClick={() => handleEventButtonAction(event.id)} disabled={buttonDisable}>
           <Styled.Item>
             <Styled.ItemContent>{event.name}</Styled.ItemContent>
           </Styled.Item>
@@ -303,17 +319,15 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   function handleScheduleParticipants() {
-    const array = [1, 2, 3]
-
-    return array.map((value, index) => {
+    return scheduleParticipants.map((participant, index) => {
       return (
-        <Styled.ItemContainerParticipant key={index} >
+        <Styled.ItemContainerParticipant key={participant.id} >
           <Styled.Item>
-            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+            <Styled.ItemContent>{participant.name}</Styled.ItemContent>
           </Styled.Item>
 
           <Styled.Item>
-            <Styled.ItemContent>19:00</Styled.ItemContent>
+            <Styled.ItemContent>{participant.hour}</Styled.ItemContent>
           </Styled.Item>
         </Styled.ItemContainerParticipant>
       )
@@ -367,7 +381,6 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   async function handleButton() {
-    // console.log(hourParticipant)
     let ScheduleParticipantsActualHour = scheduleParticipants
 
     hourParticipant.forEach((value, index) => {
@@ -403,7 +416,7 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
         }
       })
         .then(async (response) => {
-          console.log(response)
+          alert('Cronograma criado!')
 
           await api.get(`/events/${eventSelected}/schedule`, {
             headers: {
@@ -439,7 +452,19 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
           'Authorization': `Bearer ${token}`
         }
       })
-        .then(console.log)
+        .then(async (response) => {
+          alert('Cronograma criado!')
+
+          await api.get(`/events/${eventSelected}/schedule`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+            .then(response => {
+              setScheduleParticipants(response.data.schedule.participants)
+            })
+            .catch(error => console.log(error))
+        })
         .catch(console.log)
     }
   }

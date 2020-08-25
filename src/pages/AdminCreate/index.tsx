@@ -12,9 +12,10 @@ export default function AdminCreate() {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false)
 
   function handleButton() {
-    
+    setButtonDisable(true)
   }
 
   return (
@@ -31,7 +32,7 @@ export default function AdminCreate() {
           <Input value={password} handleValue={(e) => setPassword(e.target.value)} placeholder='minhasenha123' type='password'/>
           <Input value={confirmPassword} handleValue={(e) => setConfirmPassword(e.target.value)} placeholder='minhasenha123' type='password'/>
 
-          <ForwardButton onClick={handleButton} />
+          <ForwardButton onClick={handleButton} disabled={buttonDisable}/>
         </Styled.FormContainer>
       </Styled.ContentContainer>
     </Styled.Container>

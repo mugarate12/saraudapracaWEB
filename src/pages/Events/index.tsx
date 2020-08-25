@@ -21,6 +21,8 @@ export default function Events() {
   const [date, setDate] = useState<string>('')
   const [hour, setHour] = useState<string>('')
   const [token, setToken] = useState<string>('')
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false)
+
 
   useEffect(() => {
     const localStorageToken = localStorage.getItem('token')
@@ -33,6 +35,8 @@ export default function Events() {
   }, [token, history])
   
   async function handleButton() {
+    setButtonDisable(true)
+
     console.log(eventName, date, hour)
     console.log(`${date} ${hour}`)
     console.log(token)
@@ -45,8 +49,14 @@ export default function Events() {
         'Authorization': `Bearer ${token}`
       }
     })
-      .then(response => console.log(response))
-      .catch((error: ApiRequestError) => console.log(error.message))
+      .then(response => {
+        setButtonDisable(false)
+        console.log(response)
+      })
+      .catch((error: ApiRequestError) => {
+        setButtonDisable(false)
+        console.log(error.message)
+      })
   }
 
   return (
@@ -62,7 +72,7 @@ export default function Events() {
           <Input value={date} handleValue={(e) => setDate(e.target.value)} type='date' />
           <Input value={hour} handleValue={(e) => setHour(e.target.value)} type='time' />
 
-          <ForwardButton onClick={handleButton} />
+          <ForwardButton onClick={handleButton} disabled={buttonDisable}/>
         </Styled.FormContainer>
       </Styled.ContentContainer>
     </Styled.Container>

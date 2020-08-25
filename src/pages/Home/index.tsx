@@ -18,8 +18,11 @@ export default function Home() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false)
 
   async function handleButton() {
+    setButtonDisable(true)
+
     if (email && password) {
       await api.post('/auth/admin', { email, password })
         .then(response => {
@@ -32,10 +35,15 @@ export default function Home() {
             sessionStorage.setItem('token', response.data.token)
           }
 
+          setButtonDisable(false)
           history.push('/events/create')
         })
-        .catch((err: ErrorEvent) => alert('Dados invalidos'))
+        .catch((err: ErrorEvent) => {
+          setButtonDisable(false)
+          alert('Dados invalidos')
+        })
     } else {
+      setButtonDisable(false)
       alert('Preencha todos os campos')
     }
 
@@ -58,7 +66,7 @@ export default function Home() {
             <Styled.CheckboxMessage>manter conectado?</Styled.CheckboxMessage>
           </Styled.CheckboxContainer>
           
-          <ForwardButton onClick={handleButton}/>
+          <ForwardButton onClick={handleButton} disabled={buttonDisable} />
 
           <Styled.checkAdminButton>
             <Styled.TextCheckAdminButton>não consigo autenticar</Styled.TextCheckAdminButton>
