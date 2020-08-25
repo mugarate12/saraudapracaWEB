@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ haveMenu }) => {
               </Styled.SidebarButton>
             </Styled.Li>
 
-            {renderSideBarOptions(showScheduleOptions, ['Criar', 'Ver', 'Enviar'], ['/schedule/create', '/schedule/view', '/schedule/send'])}
+            {renderSideBarOptions(showScheduleOptions, ['Criar/Editar', 'Ver', 'Enviar'], ['/schedule/create', '/schedule/view', '/schedule/send'])}
 
             <Styled.Li>
               <Styled.SidebarButton onClick={() => handleBooleanState(showAdminOptions, setShowAdminOptions)} >

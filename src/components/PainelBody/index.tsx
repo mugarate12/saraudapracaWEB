@@ -33,16 +33,41 @@ interface ApiParticipants {
   instagram: string;
 }
 
+interface ApiScheduleParticipants {
+  id: number;
+  name: string;
+  hour: string;
+  activity: string;
+}
+
+interface ParticipantsToCreateSchedule {
+  participantIDFK: number;
+  eventIDFK: Number;
+  hour: string;
+}
+
+interface hourParticipantInterface {
+  participantID: number;
+  hour: string;
+}
+
+interface updateParticipantsSchedule {
+  id: number;
+  hour: string;
+  name: string;
+}
+
 // Participantes do cronograma vem com Nome e Hora
 
 const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend, scheduleCreate }) => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false)
-  const [hourParticipant, setHourParticipant] = useState<Array<string>>(['', '', ''])
+  const [hourParticipant, setHourParticipant] = useState<Array<hourParticipantInterface>>([])
 
   const token = localStorage.getItem('token') || sessionStorage.getItem('token') || ''
   const [events, setEvents] = useState<Array<ApiEvents>>([])
   const [eventSelected, setEventSelected] = useState<Number>()
   const [participants, setParticipants] = useState<Array<ApiParticipants>>([])
+  const [scheduleParticipants, setScheduleParticipants] = useState<Array<ApiScheduleParticipants>>([])
 
   useEffect(() => {
     async function fetchEvents() {
@@ -84,7 +109,6 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
         }
       })
         .then(response => {
-          console.log(response)
           setParticipants(response.data.participants)
         })
         .catch(error => console.log(error))
@@ -94,6 +118,24 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
       fetchParticipants()
     }
   }, [eventSelected, token])
+
+  useEffect(() => {
+    async function fetchScheduleParticipants() {
+      await api.get(`/events/${eventSelected}/schedule`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          setScheduleParticipants(response.data.schedule.participants)
+        })
+        .catch(error => console.log(error))
+    }
+
+    if (eventSelected && scheduleCreate) {
+      fetchScheduleParticipants()
+    }
+  }, [eventSelected, token, scheduleCreate, participants])
 
   function handleEventButtonAction(eventID ?: Number) {
     if (scheduleSend) {
@@ -279,32 +321,127 @@ const PainelBody: React.FC<PainelBodyProps> = ({ type, handleType, scheduleSend,
   }
 
   function handleScheduleCreate() {
-    return hourParticipant.map((value, index) => {
+    return participants.map((participant, index) => {
       return (
         <Styled.ItemContainerParticipant key={index} >
           <Styled.Item>
-            <Styled.ItemContent>nome do fulaninho</Styled.ItemContent>
+            <Styled.ItemContent>{participant.name}</Styled.ItemContent>
           </Styled.Item>
 
           <Styled.Item>
-            <Styled.ItemContent>Recitar</Styled.ItemContent>
+            <Styled.ItemContent>{participant.activity}</Styled.ItemContent>
           </Styled.Item>
 
-          <Styled.HourInputParticipant defaultValue={hourParticipant[index]} onChange={(e) => setHour(index, e)} placeholder='digite um horario'/>
+          <Styled.HourInputParticipant defaultValue={getHour(participant.id)} onChange={(e) => setHour(participant.id, e)} placeholder='digite um horario'/>
         </Styled.ItemContainerParticipant>
       )
     })
   }
 
+  function getHour(idParticipant: number) {
+    let hour = ''
+    scheduleParticipants.forEach((scheduleParticipant) => {
+      if (idParticipant === scheduleParticipant.id) {
+        hour = scheduleParticipant.hour
+      }
+    })
+
+    return hour
+  }
+
   function setHour(index: number, e: ChangeEvent<HTMLInputElement>) {
     let hourParticipantCopy = hourParticipant
-    hourParticipantCopy[index] = e.target.value
+
+    hourParticipant.forEach((value, indexH) => {
+      if (value.participantID === index) {
+        delete hourParticipantCopy[indexH]
+      }
+    })
+
+    hourParticipantCopy.push({
+      participantID: index,
+      hour: e.target.value
+    })
 
     setHourParticipant(hourParticipantCopy)
   }
 
-  function handleButton() {
-    console.log(hourParticipant)
+  async function handleButton() {
+    // console.log(hourParticipant)
+    let ScheduleParticipantsActualHour = scheduleParticipants
+
+    hourParticipant.forEach((value, index) => {
+      scheduleParticipants.forEach((participant, index) => {
+        if (value.participantID === participant.id) {
+          delete ScheduleParticipantsActualHour[index]
+        }
+      })
+    })
+    
+    let arrayToCreateScheduele: Array<ParticipantsToCreateSchedule> = []
+    hourParticipant.forEach((value, index) => {
+      arrayToCreateScheduele.push({
+        eventIDFK: eventSelected || 0,
+        hour: value.hour,
+        participantIDFK: value.participantID
+      })
+    })
+    ScheduleParticipantsActualHour.forEach((participantActualHour) => {
+      arrayToCreateScheduele.push({
+        eventIDFK: eventSelected || 0,
+        hour: participantActualHour.hour,
+        participantIDFK: participantActualHour.id
+      })
+    })
+    
+    if (scheduleParticipants.length === 0) {
+      await api.post('/schedule', {
+        participants: arrayToCreateScheduele
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(async (response) => {
+          console.log(response)
+
+          await api.get(`/events/${eventSelected}/schedule`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+            .then(response => {
+              setScheduleParticipants(response.data.schedule.participants)
+            })
+            .catch(error => console.log(error))
+        })
+        .catch(error => console.log(error))
+    } else {
+      console.log(arrayToCreateScheduele)
+      let updateParticipantsHour: Array<updateParticipantsSchedule> = []
+      
+      participants.forEach((participant, index) => {
+        arrayToCreateScheduele.forEach((scheduleParticipant, indexP) => {
+          if (participant.id === scheduleParticipant.participantIDFK) {
+            updateParticipantsHour.push({
+              hour: scheduleParticipant.hour,
+              id: scheduleParticipant.participantIDFK,
+              name: participant.name
+            })
+          }
+        })
+      })
+
+      await api.put(`/events/${eventSelected}/schedule`, {
+        participants: updateParticipantsHour
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(console.log)
+        .catch(console.log)
+    }
   }
   
   return (
